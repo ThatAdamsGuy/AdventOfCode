@@ -25,7 +25,7 @@ namespace _4._1
                 {
                     foreach (string secondWord in segments)
                     {
-                        if (IsAnagramSimple(word, secondWord)){
+                        if (!word.Equals(secondWord) && IsAnagramSimple(word, secondWord)){
                             anagram = true;
                         }
                     }
