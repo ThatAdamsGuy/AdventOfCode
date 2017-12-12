@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace _10._1
+namespace ConsoleApp1
 {
     class Program
     {
@@ -17,13 +17,15 @@ namespace _10._1
             int roboLocationX = 0;
             int roboLocationY = 0;
 
-            string input = File.ReadAllText("../../input.txt");
+            string input = File.ReadAllText("../../input.txt").Replace("\n", "");
             List<Location> list = new List<Location>();
             list.Add(new Location(santaLocationX, santaLocationY));
+            Console.WriteLine(input);
 
             bool santa = true;
             foreach (char now in input)
             {
+                int counter = 0;
                 switch (now)
                 {
                     case '>':
@@ -56,37 +58,41 @@ namespace _10._1
                         break;
                 }
 
-                if (!(list.Exists(n => n.x == santaLocationX && n.y == santaLocationY)))
+                if (santa)
                 {
-                    if (santa)
-                    {
-                        list.Add(new Location(santaLocationX, santaLocationY));
-                        santa = !santa;
-                    }
-                    else
-                    {
-                        list.Add(new Location(roboLocationX, roboLocationY));
-                        santa = !santa;
-                    }
+                    Console.WriteLine("SANTA - X: " + santaLocationX + ". Y: " + santaLocationY);
+                } else
+                {
+                    Console.WriteLine("ROBO  - X: " + roboLocationX + ". Y: " + roboLocationY);
                 }
-            }
-            //&& !roboList.Exists(n => n.x == roboLocationX && n.y == roboLocationY)
 
+                if (santa && !(list.Exists(n => n.x == santaLocationX && n.y == santaLocationY)))
+                {
+                    list.Add(new Location(santaLocationX, santaLocationY));
+                }
+                else if (!santa && !(list.Exists(n => n.x == roboLocationX && n.y == roboLocationY)))
+                {
+                    list.Add(new Location(roboLocationX, roboLocationY));
+                }
+                counter++;
+
+                santa = !santa;
+            }
 
             Console.WriteLine("SUM: " + (list.Count));
             Console.ReadLine();
         }
-    }
 
-    public class Location
-    {
-        public int x;
-        public int y;
-
-        public Location(int inX, int inY)
+        public class Location
         {
-            this.x = inX;
-            this.y = inY;
+            public int x;
+            public int y;
+
+            public Location(int inX, int inY)
+            {
+                this.x = inX;
+                this.y = inY;
+            }
         }
     }
 }
