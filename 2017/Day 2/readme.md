@@ -1,1 +1,0 @@
-Part 1 done by hand in Excel
