@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -25,6 +26,8 @@ namespace _2019_3
 
         static void Main(string[] args)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             string wireOne;
             string wireTwo;
             wireList = new List<Coordinate>();
@@ -77,6 +80,13 @@ namespace _2019_3
 
             Console.WriteLine("Lowest: " + distances.Min());
             Console.WriteLine("Fewest combined steps: " + combinedSteps.Min());
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            Console.WriteLine("Memory used: " + System.GC.GetTotalMemory(false));
+            Console.WriteLine("RunTime: " + elapsedTime);
         }
 
             public static void TraceString(char direction, int length, bool isWireOne)
