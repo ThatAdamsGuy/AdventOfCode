@@ -55,16 +55,12 @@ namespace _2019_6
 
         static int JumpToSanta()
         {
-            var YOU = inputs.FirstOrDefault(t => t.Value.Equals("YOU"));
-            var SAN = inputs.FirstOrDefault(t => t.Value.Equals("SAN"));
-
-
             Console.Write("Planets from me to COM: ");
             List<string> MeToCOM = GetPlanets("YOU", new List<string>());
             List<string> SanToCOM = GetPlanets("SAN", new List<string>());
             Console.WriteLine("Me to COM: " + MeToCOM.Count);
             Console.WriteLine("Santa to COM: " + SanToCOM.Count);
-            HashSet<string> uniques = new HashSet<string>(MeToCOM.Union(SanToCOM));
+            MeToCOM.Except(SanToCOM).Concat(SanToCOM.Except(MeToCOM));
 
             Console.WriteLine("MY PLANETS: ");
             int counter = 0;
@@ -81,7 +77,7 @@ namespace _2019_6
                 counter++;
             }
 
-            return uniques.Count;
+            return MeToCOM.Count;
         }
 
         static List<string> GetPlanets(string input, List<string> results)
