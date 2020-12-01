@@ -97,6 +97,7 @@ namespace AdventOfCode2020
                         Day25.Run();
                         break;
                 }
+                Console.WriteLine();
             }
         }
     }
