@@ -92,7 +92,7 @@ namespace AdventOfCode2020
 
                 if (!validEyeColours.Contains(inputs["ecl"])) return Tuple.Create(1, 0);
 
-                if (inputs["pid"].Length != 9 && !long.TryParse(inputs["pid"], out _)) return Tuple.Create(1, 0);
+                if (inputs["pid"].Length != 9 || !long.TryParse(inputs["pid"], out _)) return Tuple.Create(1, 0);
 
                 return Tuple.Create(1, 1);
 
