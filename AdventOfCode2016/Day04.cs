@@ -44,7 +44,7 @@ namespace AdventOfCode2016
                         prevLetter = curLetter;
                         finalCount++;
 
-                        if(finalCount == 5)
+                        if(finalCount == 6)
                         {
                             var split = line.Split('-');
                             int result = int.Parse(split[split.Length - 1].Split('[')[0]);
