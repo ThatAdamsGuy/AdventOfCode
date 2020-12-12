@@ -13,7 +13,7 @@ namespace AdventOfCode2020
 
         public static void Run()
         {
-            List<string> strings = File.ReadAllLines("day10Known.txt").ToList();
+            List<string> strings = File.ReadAllLines("day10Input.txt").ToList();
             inputs = new List<int>();
             foreach(string item in strings)
             {
@@ -41,22 +41,35 @@ namespace AdventOfCode2020
                 }
             }
             Console.WriteLine($"3-Jolts: {threeJoltDifferences}. 1-Jolts: {oneJoltDiffereces}. Multiplied: {threeJoltDifferences * oneJoltDiffereces}");
-            Console.WriteLine($"Total Possibilities: {Part2(0)}");
 
-        }
-
-        public static long Part2(int pos)
-        {
-            if (pos == inputs.Count())
+            Dictionary<int, long> cache = new Dictionary<int, long>();
+            for (int i = inputs.Count() - 1; i >= 0; i--)
             {
-                return 1;
+                long possibilities = 0;
+                int pos = i + 1;
+                while (true)
+                {
+                    if (pos == inputs.Count())
+                    {
+                        possibilities = 1;
+                        break;
+                    }
+                    else
+                    {
+                        if (inputs[pos] > inputs[i] + 3)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            possibilities += cache[pos];
+                            pos++;
+                        }
+                    }
+                }
+                cache.Add(i, possibilities);
             }
-
-            long result = 0;
-            if (pos + 1 < inputs.Count() && inputs.Contains(inputs[pos+1])) result += Part2(pos+1);
-            if (pos + 2 < inputs.Count() && inputs.Contains(inputs[pos+2])) result += Part2(pos+2);
-            if (pos + 3 < inputs.Count() && inputs.Contains(inputs[pos+3])) result += Part2(pos+3);
-            return result;
+            Console.WriteLine($"Total Possibilities: {cache[0]}");
         }
     }
 }
