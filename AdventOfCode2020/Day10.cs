@@ -13,7 +13,7 @@ namespace AdventOfCode2020
 
         public static void Run()
         {
-            List<string> strings = File.ReadAllLines("day10Known.txt").ToList();
+            List<string> strings = File.ReadAllLines("day10Input.txt").ToList();
             inputs = new List<int>();
             foreach(string item in strings)
             {
