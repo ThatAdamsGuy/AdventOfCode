@@ -43,24 +43,26 @@ namespace AdventOfCode2020
             Console.WriteLine($"3-Jolts: {threeJoltDifferences}. 1-Jolts: {oneJoltDiffereces}. Multiplied: {threeJoltDifferences * oneJoltDiffereces}");
 
             Dictionary<int, long> cache = new Dictionary<int, long>();
-            for (int i = inputs.Count() - 1; i >= 0; i--)
+            for(int i = inputs.Count() - 1; i >= 0; i--)
             {
-                long possibilities = 0;
+                long possibilities = 1;
                 int pos = i + 1;
                 while (true)
-                {
-                    if (pos == inputs.Count())
+                {                    
+                    if(pos == inputs.Count())
                     {
-                        possibilities = 1;
                         break;
                     }
                     else
                     {
-                        if (inputs[pos] > inputs[i] + 3)
+                        if(i + 3 >= inputs.Count())
                         {
                             break;
                         }
-                        else
+                        else if(inputs[pos] > inputs[i] + 3)
+                        {
+                            break;
+                        } else
                         {
                             possibilities += cache[pos];
                             pos++;
