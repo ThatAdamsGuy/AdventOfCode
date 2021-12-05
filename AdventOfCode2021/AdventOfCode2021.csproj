@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5358B866-3BCC-4098-9AB4-0DCFC52DFC40}</ProjectGuid>
+    <ProjectGuid>{04B75105-5E77-4770-A6C2-C89DF5C22A3D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>AdventOfCode2019</RootNamespace>
-    <AssemblyName>AdventOfCode2019</AssemblyName>
+    <RootNamespace>AdventOfCode2021</RootNamespace>
+    <AssemblyName>AdventOfCode2021</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,45 +43,60 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Day01.cs" />
     <Compile Include="Day02.cs" />
-    <Compile Include="Day03.cs" />
-    <Compile Include="Day04.cs" />
-    <Compile Include="Day05.cs" />
-    <Compile Include="Day06.cs" />
-    <Compile Include="Day07.cs" />
-    <Compile Include="Day08.cs" />
-    <Compile Include="Day09.cs" />
-    <Compile Include="Day10.cs" />
-    <Compile Include="Day11.cs" />
-    <Compile Include="Day12.cs" />
-    <Compile Include="Day13.cs" />
-    <Compile Include="Day14.cs" />
-    <Compile Include="Day15.cs" />
-    <Compile Include="Day16.cs" />
-    <Compile Include="Day17.cs" />
-    <Compile Include="Day18.cs" />
-    <Compile Include="Day19.cs" />
-    <Compile Include="Day20.cs" />
-    <Compile Include="Day21.cs" />
-    <Compile Include="Day22.cs" />
     <Compile Include="Day23.cs" />
     <Compile Include="Day24.cs" />
     <Compile Include="Day25.cs" />
+    <Compile Include="Day22.cs" />
+    <Compile Include="Day21.cs" />
+    <Compile Include="Day20.cs" />
+    <Compile Include="Day19.cs" />
+    <Compile Include="Day18.cs" />
+    <Compile Include="Day17.cs" />
+    <Compile Include="Day16.cs" />
+    <Compile Include="Day15.cs" />
+    <Compile Include="Day14.cs" />
+    <Compile Include="Day13.cs" />
+    <Compile Include="Day12.cs" />
+    <Compile Include="Day11.cs" />
+    <Compile Include="Day10.cs" />
+    <Compile Include="Day09.cs" />
+    <Compile Include="Day08.cs" />
+    <Compile Include="Day07.cs" />
+    <Compile Include="Day06.cs" />
+    <Compile Include="Day05.cs" />
+    <Compile Include="Day04.cs" />
+    <Compile Include="Day03.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Day01.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="day04input.txt">
+    <Content Include="Day01Input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="day06input.txt">
+    <Content Include="Day01Known.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Day07Input.txt">
+    <Content Include="Day02Input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Day03Input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Day03Known.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Day04Input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Day05Input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Day05Known.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
