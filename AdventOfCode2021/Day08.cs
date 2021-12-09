@@ -39,8 +39,9 @@ namespace AdventOfCode2021
 
                 string one = allDisplays.Where(s => s.Length == 2).FirstOrDefault();
                 string four = allDisplays.Where(s => s.Length == 4).FirstOrDefault();
+                string eight = allDisplays.Where(s => s.Length == 7).FirstOrDefault();
 
-                if(one is null || four is null)
+                if (one is null || four is null)
                 {
                     throw new Exception();
                 }
@@ -67,27 +68,56 @@ namespace AdventOfCode2021
                             Console.Write("8");
                             break;
                         case 6:
-                            bool valid = true;
+                            string sixMask = four;
                             foreach (char c in one)
                             {
-                                if (!checking.Contains(c))
+                                if (sixMask.Contains(c))
                                 {
-                                    valid = false;
-                                    break;
+                                    sixMask = sixMask.Replace(c.ToString(), String.Empty);
                                 }
+                            }
+                            string tmpMask = eight;
+                            foreach(char c in sixMask)
+                            {
+                                if (tmpMask.Contains(c))
+                                {
+                                    tmpMask = tmpMask.Replace(c.ToString(), String.Empty);
+                                }
+                            }
+
+                            bool valid = true;
+                            foreach (char c in tmpMask)
+                            {
+                                if (!checking.Contains(c))
+                                    valid = false;
+                            }
+                            if (valid)
+                            {
+                                number += "0";
+                                Console.Write("0");
+                                break;
+                            }
+
+                            valid = true;
+                            foreach(char c in one)
+                            {
+                                if (!checking.Contains(c))
+                                    valid = false;
                             }
                             if (valid)
                             {
                                 number += "9";
                                 Console.Write("9");
                                 break;
-                            }
-                            else
+                            } else
                             {
                                 number += "6";
                                 Console.Write("6");
+                                break;
                             }
-                            break;
+
+                            
+
                         case 5:
                             valid = true;
                             foreach(char c in one)
