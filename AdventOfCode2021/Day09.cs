@@ -129,7 +129,7 @@ namespace AdventOfCode2021
             {
                 var next = lowPoints.First();
                 lowPoints.RemoveAt(0);
-                results.Add(CheckPoint(grid, new List<Tuple<int, int>>(), next.Item1, next.Item2, null, null, input.Length , rowLength) + 1);
+                results.Add(CheckPoint(grid, new List<Tuple<int, int>>(), next.Item1, next.Item2, null, null, input.Length , rowLength));
             }
 
             results.Sort();
@@ -141,11 +141,6 @@ namespace AdventOfCode2021
         {
             int sum = 0;
 
-            if (lowPoints.Any(x => x.Item1 == row && x.Item2 == col))
-            {
-                ;
-            }
-
             if (visited.Any(x => x.Item1 == row && x.Item2 == col))
             {
                 return sum;
@@ -155,25 +150,25 @@ namespace AdventOfCode2021
             }
 
             //Check North
-            if (row - 1 != prevRow && row != 0 && grid[row - 1, col] != 9)
+            if (row != 0 && grid[row - 1, col] != 9)
             {
                 sum += CheckPoint(grid, visited, row - 1, col, row, col, rowCount, colCount);
             }
 
             //Check East
-            if (col - 1 != prevCol && col != colCount - 1 && grid[row, col + 1] != 9)
+            if (col != colCount - 1 && grid[row, col + 1] != 9)
             {
                 sum += CheckPoint(grid, visited, row, col + 1, row, col, rowCount, colCount);
             }
 
             //Check South
-            if (row - 1 != prevRow && row != rowCount - 1 && grid[row + 1, col] != 9)
+            if (row != rowCount - 1 && grid[row + 1, col] != 9)
             {
                 sum += CheckPoint(grid, visited, row + 1, col, row, col, rowCount, colCount);
             }
 
             //Check West
-            if (col - 1 != prevCol && col != 0 && grid[row, col - 1] != 9)
+            if (col != 0 && grid[row, col - 1] != 9)
             {
                 sum += CheckPoint(grid, visited, row, col - 1, row, col, rowCount, colCount);
             }
