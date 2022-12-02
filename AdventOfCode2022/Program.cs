@@ -14,7 +14,7 @@ namespace AdventOfCode2022
             while (true)
             {
                 Console.WriteLine("*******************");
-                Console.WriteLine("Advent of Code 2021");
+                Console.WriteLine("Advent of Code 2022");
                 Console.WriteLine("*******************");
                 Console.WriteLine();
                 Console.Write("Run day: ");
