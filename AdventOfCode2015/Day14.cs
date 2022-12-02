@@ -28,7 +28,7 @@ namespace AdventOfCode2015
 
             int seconds = 2503;
 
-            for(int i = 1; i < =seconds; i++)
+            for(int i = 1; i <= seconds; i++)
             {
                 foreach(var reindeer in reindeers)
                 {

@@ -68,6 +68,7 @@
     <Compile Include="Day23.cs" />
     <Compile Include="Day24.cs" />
     <Compile Include="Day25.cs" />
+    <Compile Include="IntcodeParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
