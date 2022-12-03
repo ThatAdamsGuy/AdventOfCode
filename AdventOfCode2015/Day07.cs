@@ -29,7 +29,7 @@ namespace AdventOfCode2015
         public static void Run()
         {
             List<Wire> wires = new List<Wire>();
-            Queue<string> instructions = new Queue<string>(File.ReadAllLines("Day07Input.txt"));
+            Queue<string> instructions = new Queue<string>(File.ReadAllLines("Day07Known.txt"));
             while (instructions.Count > 0)
             {
                 string instruction = instructions.Dequeue();
@@ -38,7 +38,10 @@ namespace AdventOfCode2015
                     instructions.Enqueue(instruction);
                 }
             }
-            Console.WriteLine("Part 1: " + wires.Where(x => x.Name == "a").Single().Value);
+            foreach(var wire in wires)
+            {
+                Console.WriteLine(wire.Name + " - " + wire.Value);
+            }
         }
 
         private static bool ProcessInstruction(List<Wire> wires, string instruction)
@@ -129,10 +132,10 @@ namespace AdventOfCode2015
                         result = (ushort)(wire1.Value | wire2.Value);
                         break;
                     case Instruction.LShift:
-                        result = (ushort)(wire1.Value << ushort.Parse(operand2));
+                        result = (ushort)(wire1.Value << int.Parse(operand2));
                         break;
                     case Instruction.RShift:
-                        result |= (ushort)(wire1.Value >> ushort.Parse(operand2));
+                        result |= (ushort)(wire1.Value >> int.Parse(operand2));
                         break;
                     default:
                         throw new ArgumentException();
