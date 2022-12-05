@@ -73,22 +73,33 @@ namespace AdventOfCode2015
         private static bool ProcessAssign(List<Wire> wires, string input, string destination)
         {
             Wire destinationWire = GetWire(wires, destination);
+            Wire inputWire = GetWire(wires, input);
+
+            ushort val;
+            if (inputWire is null)
+            {
+                if (ushort.TryParse(input, out ushort res))
+                {
+                    val = res;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                val = inputWire.Value;
+            }
+            
+
             if (destinationWire is null) {
                 destinationWire = new Wire();
                 destinationWire.Name = destination;
                 wires.Add(destinationWire);
             }
 
-            if(ushort.TryParse(input, out ushort result))
-            {
-                destinationWire.Value = result;
-            }
-            else
-            {
-                Wire sourceWire = GetWire(wires, input);
-                if (sourceWire is null) return false;
-                destinationWire.Value = sourceWire.Value;
-            }
+            destinationWire.Value = val;
 
             return true;
         }
@@ -173,7 +184,7 @@ namespace AdventOfCode2015
                 }
                 else if (instruction == Instruction.RShift)
                 {
-                    result |= (ushort)(wire1.Value >> ushort.Parse(operand2));
+                    result = (ushort)(wire1.Value >> ushort.Parse(operand2));
                 }
                 else
                 {
