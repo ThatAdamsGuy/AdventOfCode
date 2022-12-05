@@ -29,7 +29,7 @@ namespace AdventOfCode2015
         public static void Run()
         {
             List<Wire> wires = new List<Wire>();
-            Queue<string> instructions = new Queue<string>(File.ReadAllLines("Day07Known.txt"));
+            Queue<string> instructions = new Queue<string>(File.ReadAllLines("Day07Input.txt"));
             while (instructions.Count > 0)
             {
                 string instruction = instructions.Dequeue();
@@ -42,6 +42,8 @@ namespace AdventOfCode2015
             {
                 Console.WriteLine(wire.Name + " - " + wire.Value);
             }
+
+            Console.WriteLine("Part 1 - " + wires.Single(x => x.Name == "a").Value);
         }
 
         private static bool ProcessInstruction(List<Wire> wires, string instruction)
@@ -114,47 +116,86 @@ namespace AdventOfCode2015
         {
             Wire wire1 = GetWire(wires, operand1);
             Wire wire2 = GetWire(wires, operand2);
+            ushort result = 0;
 
             //One of the wires doesn't yet have a value
-            if (wire1 is null)  return false;
-            if ((instruction == Instruction.Or || instruction == Instruction.And) && wire2 is null) return false;
+            if (instruction == Instruction.Or || instruction == Instruction.And)
+            {
+                ushort val1;
+                ushort val2;
+                if (wire1 is null)
+                {
+                    if (!ushort.TryParse(operand1, out ushort res1))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        val1 = res1;
+                    }
+                }
+                else
+                {
+                    val1 = wire1.Value;
+                }
+
+                if (wire2 is null)
+                {
+                    if (!ushort.TryParse(operand1, out ushort res2))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        val2 = res2;
+                    }
+                }
+                else
+                {
+                    val2 = wire2.Value;
+                }
+
+                if (instruction == Instruction.Or)
+                {
+                    result = (ushort)(val1 | val2);
+                } 
+                else if (instruction == Instruction.And)
+                {
+                    result = (ushort)(val1 & val2);
+                }
+            }
             else
             {
-                Wire wire3 = GetWire(wires, destination);
-                ushort result = 0;
-
-                switch (instruction)
+                if (wire1 is null) return false;
+                if (instruction == Instruction.LShift)
                 {
-                    case Instruction.And:
-                        result = (ushort)(wire1.Value & wire2.Value);
-                        break;
-                    case Instruction.Or:
-                        result = (ushort)(wire1.Value | wire2.Value);
-                        break;
-                    case Instruction.LShift:
-                        result = (ushort)(wire1.Value << int.Parse(operand2));
-                        break;
-                    case Instruction.RShift:
-                        result |= (ushort)(wire1.Value >> int.Parse(operand2));
-                        break;
-                    default:
-                        throw new ArgumentException();
+                    result = (ushort)(wire1.Value << ushort.Parse(operand2));
                 }
-
-                if (wire3 is null)
+                else if (instruction == Instruction.RShift)
                 {
-                    wire3 = new Wire();
-                    wire3.Name = destination;
-                    wires.Add(wire3);
+                    result |= (ushort)(wire1.Value >> ushort.Parse(operand2));
                 }
-                wire3.Value = result;
-                return true;
+                else
+                {
+                    throw new ArgumentException();
+                }
             }
+
+            Wire wire3 = GetWire(wires, destination);
+            
+            if (wire3 is null)
+            {
+                wire3 = new Wire();
+                wire3.Name = destination;
+                wires.Add(wire3);
+            }
+            wire3.Value = result;
+            return true;
         }
 
         private static Wire GetWire(List<Wire> wires, string name)
         {
-            return wires.Where(x => x.Name == name).SingleOrDefault();
+            return wires.SingleOrDefault(x => x.Name == name);
         }
 
         private static (Instruction instruction, string operand1, string operand2) GetInstruction(string instruction)
