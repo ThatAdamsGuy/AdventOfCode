@@ -13,7 +13,7 @@ namespace AdventOfCode2016
         private static int Height;
         private static string Filepath;
 
-        private static bool Debug = true;
+        private static bool Debug = false;
 
         public static void Run()
         {
@@ -60,7 +60,7 @@ namespace AdventOfCode2016
                     throw new ArgumentException();
                 }
 
-                OutputScreen(screen);
+                //OutputScreen(screen);
             }
             int sum = screen.Cast<bool>().Count(x => x);
             Console.WriteLine("Part 1 - " + sum);
@@ -91,9 +91,9 @@ namespace AdventOfCode2016
             int row = int.Parse(split2[0]);
             int num = int.Parse(split2[1]);
 
+            bool last = false;
             for (int i = 0; i < num; i++)
             {
-                bool last = false;
                 for (int k = 0; k < Height; k++)
                 {
                     if (i == 0 && k == 0)
@@ -117,9 +117,9 @@ namespace AdventOfCode2016
             int row = int.Parse(split2[0]);
             int num = int.Parse(split2[1]);
 
-            for(int i = 0; i < num; i++)
+            bool last = false;
+            for (int i = 0; i < num; i++)
             {
-                bool last = false;
                 for (int k = 0; k < Width; k++)
                 {
                     if (i == 0 && k == 0)
