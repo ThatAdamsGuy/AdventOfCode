@@ -43,7 +43,7 @@ namespace AdventOfCode2015
                 Console.WriteLine(wire.Name + " - " + wire.Value);
             }
 
-            Console.WriteLine("Part 1 - " + wires.Single(x => x.Name == "a").Value);
+            Console.WriteLine("Part 1 - " + wires.SingleOrDefault(x => x.Name == "a")?.Value);
         }
 
         private static bool ProcessInstruction(List<Wire> wires, string instruction)
@@ -166,7 +166,7 @@ namespace AdventOfCode2015
 
                 if (wire2 is null)
                 {
-                    if (!ushort.TryParse(operand1, out ushort res2))
+                    if (!ushort.TryParse(operand2, out ushort res2))
                     {
                         return false;
                     }
