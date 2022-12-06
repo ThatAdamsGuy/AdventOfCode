@@ -106,21 +106,35 @@ namespace AdventOfCode2015
 
         private static bool ProcessNot(List<Wire> wires, string operand1, string destination)
         {
+            ushort val1;
+            
             Wire wire1 = GetWire(wires, operand1);
             Wire wire2 = GetWire(wires, destination);
 
-            if (wire1 is null) return false;
+            if(wire1 is null)
+            {
+                if(ushort.TryParse(operand1, out ushort res))
+                {
+                    val1 = res;
+                }
+                else
+                {
+                    return false;
+                }
+            }
             else
             {
-                if (wire2 is null)
-                {
-                    wire2 = new Wire();
-                    wire2.Name = destination;
-                    wires.Add(wire2);
-                }
-                wire2.Value = (ushort)~wire1.Value;
-                return true;
+                val1 = wire1.Value;
             }
+
+            if (wire2 is null)
+            {
+                wire2 = new Wire();
+                wire2.Name = destination;
+                wires.Add(wire2);
+            }
+            wire2.Value = (ushort)~val1;
+            return true;
         }
 
         private static bool ProcessTwoOperands(List<Wire> wires, Instruction instruction, string operand1, string operand2, string destination)
