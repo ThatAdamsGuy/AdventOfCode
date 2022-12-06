@@ -30,6 +30,7 @@ namespace AdventOfCode2015
         {
             List<Wire> wires = new List<Wire>();
             Queue<string> instructions = new Queue<string>(File.ReadAllLines("Day07Input.txt"));
+            Queue<string> p2Instructions = new Queue<string>(instructions);
             while (instructions.Count > 0)
             {
                 string instruction = instructions.Dequeue();
@@ -38,12 +39,24 @@ namespace AdventOfCode2015
                     instructions.Enqueue(instruction);
                 }
             }
-            foreach(var wire in wires)
-            {
-                Console.WriteLine(wire.Name + " - " + wire.Value);
-            }
 
-            Console.WriteLine("Part 1 - " + wires.SingleOrDefault(x => x.Name == "a")?.Value);
+            var wireA = wires.SingleOrDefault(x => x.Name == "a")?.Value;
+            Console.WriteLine("Part 1 - " + wireA);
+
+            wires.Clear();
+            wires.Add(new Wire { Name = "b", Value = wireA.Value });
+            while (p2Instructions.Count > 0)
+            {
+                string instruction = p2Instructions.Dequeue();
+                //Prevent the P2 requirement being overridden
+                if (instruction == "19138 -> b") continue;
+                if (!ProcessInstruction(wires, instruction))
+                {
+                    p2Instructions.Enqueue(instruction);
+                }
+            }
+            wireA = wires.SingleOrDefault(x => x.Name == "a")?.Value;
+            Console.WriteLine("Part 2 - " + wireA);
         }
 
         private static bool ProcessInstruction(List<Wire> wires, string instruction)
