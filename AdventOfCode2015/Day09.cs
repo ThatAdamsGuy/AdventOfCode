@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AdventOfCode2015
 {
     //DJIKSTRA LETS GOOOOOO
-    class Day09
+    static class Day09
     {
         [Serializable]
         public class Node
