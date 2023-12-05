@@ -135,7 +135,6 @@ namespace AdventOfCode2023
                     curString += grid[i, j];
                 }
             }
-            File.WriteAllLines(@"C:\Users\harry\Desktop\log.txt", log);
 
             Console.WriteLine("Part 1 - " + sum);
 
@@ -156,6 +155,11 @@ namespace AdventOfCode2023
                 int row = asterisk.Item1;
                 int column = asterisk.Item2;
 
+                if (row == 83 && column == 108)
+                {
+                    ;
+                }
+
                 List<int> partNumbers = new List<int>();
 
                 if(row != 0 && column != 0 && row != input.Length - 1 && column != len - 1)
@@ -163,7 +167,6 @@ namespace AdventOfCode2023
                     // Middle square
 
                     // ABOVE
-
                     if (IsNumber(grid[row-1, column - 1]))
                     {
                         // Top left is a number
@@ -173,7 +176,7 @@ namespace AdventOfCode2023
                             if (IsNumber(grid[row-1, column + 1]))
                             {
                                 // Entire top row is a number
-                                partNumbers.Add(Search(row - 1, column + 1, false));
+                                partNumbers.Add(Search(row - 1, column - 1, true));
                             }
                             else
                             {
@@ -189,11 +192,14 @@ namespace AdventOfCode2023
                                 partNumbers.Add(Search(row - 1, column - 1, false));
                                 partNumbers.Add(Search(row - 1, column + 1, true));
                             }
-                            // Only top left is a number
-                            partNumbers.Add(Search(row - 1, column - 1, false));
+                            else
+                            {
+                                // Only top left is a number
+                                partNumbers.Add(Search(row - 1, column - 1, false));
+                            }
                         }
                     }
-                    else if (IsNumber(grid[row-1, column]))
+                    else if (IsNumber(grid[row - 1, column]))
                     {
                         // Above is number, top left isn't
                         partNumbers.Add(Search(row - 1, column, true));
@@ -201,25 +207,24 @@ namespace AdventOfCode2023
                     else if (IsNumber(grid[row-1, column + 1]))
                     {
                         // Top right corner is a number
-                        partNumbers.Add(Search(row-1,column+1, true));
+                        partNumbers.Add(Search(row - 1,column + 1, true));
                     }
 
                     // BELOW
-
                     if (IsNumber(grid[row + 1, column - 1]))
                     {
-                        // Top left is a number
+                        // Bottom left is a number
                         if (IsNumber(grid[row + 1, column]))
                         {
-                            // Top Left and Top Middle is a number
+                            // Bottom Left and Bottom Middle is a number
                             if (IsNumber(grid[row + 1, column + 1]))
                             {
-                                // Entire top row is a number
+                                // Entire Bottom row is a number
                                 partNumbers.Add(Search(row + 1, column + 1, false));
                             }
                             else
                             {
-                                // Above and Top Left is number
+                                // Below and Bottom Left is number
                                 partNumbers.Add(Search(row + 1, column, false));
                             }
                         }
@@ -227,22 +232,25 @@ namespace AdventOfCode2023
                         {
                             if (IsNumber(grid[row + 1, column + 1]))
                             {
-                                // Two numbers separated by above middle
+                                // Two numbers separated by below middle
                                 partNumbers.Add(Search(row + 1, column - 1, false));
                                 partNumbers.Add(Search(row + 1, column + 1, true));
                             }
-                            // Only top left is a number
-                            partNumbers.Add(Search(row + 1, column - 1, false));
+                            else
+                            {
+                                // Only below left is a number
+                                partNumbers.Add(Search(row + 1, column - 1, false));
+                            }
                         }
                     }
                     else if (IsNumber(grid[row + 1, column]))
                     {
-                        // Above is number, top left isn't
+                        // Below is number, Bottom left isn't
                         partNumbers.Add(Search(row + 1, column, true));
                     }
                     else if (IsNumber(grid[row + 1, column + 1]))
                     {
-                        // Top right corner is a number
+                        // Bottom right corner is a number
                         partNumbers.Add(Search(row + 1, column + 1, true));
                     }
 
@@ -297,7 +305,7 @@ namespace AdventOfCode2023
                         }
                         else if (IsNumber(grid[row + 1, column - 1]))
                         {
-                            partNumbers.Add(Search(row + 1, column + 1, false));
+                            partNumbers.Add(Search(row + 1, column - 1, false));
                         }
                     }
                     else if (row == input.Length - 1 && column == 0)
@@ -361,18 +369,18 @@ namespace AdventOfCode2023
                             // Below
                             if (IsNumber(grid[row + 1, column - 1]))
                             {
-                                // Top left is a number
+                                // Bottom left is a number
                                 if (IsNumber(grid[row + 1, column]))
                                 {
-                                    // Top Left and Top Middle is a number
+                                    // Bottom Left and Bottom Middle is a number
                                     if (IsNumber(grid[row + 1, column + 1]))
                                     {
-                                        // Entire top row is a number
-                                        partNumbers.Add(Search(row + 1, column + 1, false));
+                                        // Entire Bottom row is a number
+                                        partNumbers.Add(Search(row + 1, column - 1, true));
                                     }
                                     else
                                     {
-                                        // Above and Top Left is number
+                                        // Below and Bottom Left is number
                                         partNumbers.Add(Search(row + 1, column, false));
                                     }
                                 }
@@ -380,22 +388,24 @@ namespace AdventOfCode2023
                                 {
                                     if (IsNumber(grid[row + 1, column + 1]))
                                     {
-                                        // Two numbers separated by above middle
+                                        // Two numbers separated by Bottom middle
                                         partNumbers.Add(Search(row + 1, column - 1, false));
                                         partNumbers.Add(Search(row + 1, column + 1, true));
                                     }
-                                    // Only top left is a number
-                                    partNumbers.Add(Search(row + 1, column - 1, false));
+                                    {
+                                        // Only Bottom left is a number
+                                        partNumbers.Add(Search(row + 1, column - 1, false));
+                                    }
                                 }
                             }
                             else if (IsNumber(grid[row + 1, column]))
                             {
-                                // Above is number, top left isn't
+                                // Below is number, Bottom left isn't
                                 partNumbers.Add(Search(row + 1, column, true));
                             }
                             else if (IsNumber(grid[row + 1, column + 1]))
                             {
-                                // Top right corner is a number
+                                // Bottom right corner is a number
                                 partNumbers.Add(Search(row + 1, column + 1, true));
                             }
                         }
@@ -441,8 +451,11 @@ namespace AdventOfCode2023
                                         partNumbers.Add(Search(row - 1, column - 1, false));
                                         partNumbers.Add(Search(row - 1, column + 1, true));
                                     }
-                                    // Only top left is a number
-                                    partNumbers.Add(Search(row - 1, column - 1, false));
+                                    else
+                                    {
+                                        // Only top left is a number
+                                        partNumbers.Add(Search(row - 1, column - 1, false));
+                                    }
                                 }
                             }
                             else if (IsNumber(grid[row - 1, column]))
@@ -471,6 +484,7 @@ namespace AdventOfCode2023
                             {
                                 if (IsNumber(grid[row-1,column + 1]))
                                 {
+                                    // Both above are numbers
                                     partNumbers.Add(Search(row - 1, column, true));
                                 }
                             }
@@ -534,13 +548,16 @@ namespace AdventOfCode2023
                         }
                     }
                 }
-            
-                if(partNumbers.Count == 2)
+                if (partNumbers.Contains(135))
+                {
+                    ;
+                }
+                if (partNumbers.Count == 2)
                 {
                     p2Sum += partNumbers[0] * partNumbers[1];
                 }
             }
-            Console.WriteLine(p2Sum);
+            Console.WriteLine("Part 2 - " + p2Sum);
         }
 
         private static int Search(int x, int y, bool isRight)
