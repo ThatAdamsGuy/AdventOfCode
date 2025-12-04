@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AAC41FCF-41DD-4840-8D29-0567184B26C4}</ProjectGuid>
+    <ProjectGuid>{33A78B47-B3B5-4223-A88B-D868DBC7DDA4}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>AdventOfCode2020</RootNamespace>
-    <AssemblyName>AdventOfCode2020</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>AdventOfCode2022</RootNamespace>
+    <AssemblyName>AdventOfCode2022</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -43,29 +43,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Day03.cs" />
-    <Compile Include="Day09.cs" />
-    <Compile Include="Day10.cs" />
-    <Compile Include="Day12.cs" />
-    <Compile Include="Day13.cs" />
-    <Compile Include="Day25.cs" />
-    <Compile Include="Day24.cs" />
-    <Compile Include="Day23.cs" />
     <Compile Include="Day22.cs" />
+    <Compile Include="Day23.cs" />
+    <Compile Include="Day24.cs" />
+    <Compile Include="Day25.cs" />
     <Compile Include="Day21.cs" />
     <Compile Include="Day20.cs" />
     <Compile Include="Day19.cs" />
     <Compile Include="Day18.cs" />
     <Compile Include="Day17.cs" />
-    <Compile Include="Day15.cs" />
     <Compile Include="Day16.cs" />
+    <Compile Include="Day15.cs" />
     <Compile Include="Day14.cs" />
+    <Compile Include="Day13.cs" />
+    <Compile Include="Day12.cs" />
     <Compile Include="Day11.cs" />
-    <Compile Include="Day04.cs" />
-    <Compile Include="Day05.cs" />
-    <Compile Include="Day06.cs" />
-    <Compile Include="Day07.cs" />
+    <Compile Include="Day10.cs" />
+    <Compile Include="Day09.cs" />
     <Compile Include="Day08.cs" />
+    <Compile Include="Day07.cs" />
+    <Compile Include="Day06.cs" />
+    <Compile Include="Day05.cs" />
+    <Compile Include="Day04.cs" />
+    <Compile Include="Day03.cs" />
     <Compile Include="Day02.cs" />
     <Compile Include="Day01.cs" />
     <Compile Include="Program.cs" />
@@ -75,43 +75,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="day01Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="day01known.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="day02Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="day01input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="day03Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day04Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day05Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day06Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day06Known.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day07Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day08Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day09Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day10Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day12Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="day11Input.txt">
+    <Content Include="day02input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
