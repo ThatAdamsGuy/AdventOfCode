@@ -9,62 +9,103 @@ namespace AdventOfCode2015
 {
     class Day10
     {
+        private static List<char> invalid = new List<char> { 'i', 'o', 'l' };
         public static void Run()
         {
-            string input = "1113122113";
-            string currentIteration = input;
-
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
-
-            for (int i = 0; i < 50; i++)
+            string input = "vzbxkghb";
+            int part = 1;
+            while (true)
             {
-                string currentSection = "";
-                char? lastChar = null;
-                int count = 1;
-
-                foreach (char item in currentIteration)
+                string prevInput = input;
+                string newInput = CheckInvalidChars(input);
+                if(prevInput != newInput)
                 {
-                    if (lastChar is null)
-                    {
-                        lastChar = item;
-                        continue;
-                    }
-
-                    if (item != lastChar)
-                    {
-                        currentSection += count.ToString() + lastChar.ToString();
-                        count = 0;
-                        lastChar = item;
-                    }
-
-                    count++;
+                    input = newInput;
+                    continue;
                 }
-                currentSection += count.ToString() + lastChar.ToString();
-                currentIteration = currentSection;
-                if(i == 39)
+                if (CheckSeriesOfChars(input) && CheckOverlappingPairs(input))
                 {
-                    // Get the elapsed time as a TimeSpan value.
-                    TimeSpan ts1 = stopWatch.Elapsed;
-                    Console.WriteLine("Part 1 - " + currentIteration.Length);
-                    // Format and display the TimeSpan value.
-                    string elapsedTimeOne = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        ts1.Hours, ts1.Minutes, ts1.Seconds,
-                        ts1.Milliseconds / 10);
-                    Console.WriteLine("RunTime " + elapsedTimeOne);
+                    Console.WriteLine($"Part {part} - {input}");
+                    part++;
+                    if(part > 2)
+                    {
+                        break;
+                    }
+                }
+                input = IncrementPassword(input);
+            }
+        }
+
+        private static bool CheckOverlappingPairs(string input)
+        {
+            int pairCount = 0;
+            for (int i = 0; i < input.Length - 1; i++)
+            {
+                if(input[i] == input[i+1])
+                {
+                    pairCount++;
+                    i++;
                 }
             }
-            Console.WriteLine("Part 2 - " + currentIteration.Length);
-
-            // Get the elapsed time as a TimeSpan value.
-            TimeSpan ts = stopWatch.Elapsed;
-            // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
-            Console.WriteLine("RunTime " + elapsedTime);
-            stopWatch.Stop();
+            return pairCount > 1;
         }
+
+        private static bool CheckSeriesOfChars(string input)
+        {
+            bool valid = false;
+            for(int i = 0; i < input.Length - 2; i++)
+            {
+                if (input[i+1] == (input[i] + 1)
+                    && (input[i+2] == (input[i+1] + 1)))
+                {
+                    valid = true;
+                    break;
+                }
+            }
+            return valid;
+        }
+
+        private static string CheckInvalidChars(string input)
+        {
+            bool invalidChar = false;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (invalid.Contains(input[i]))
+                {
+                    invalidChar = true;
+                }
+                if (invalidChar)
+                {
+                    var newInput = input.Substring(0, i);
+                    newInput += (char)(input[i] + 1);
+                    for (int k = 0; k < input.Length - i - 1; k++)
+                    {
+                        newInput += 'a';
+                    }
+                    input = newInput;
+                }
+            }
+            return input;
+        }
+
+        private static string IncrementPassword(string password)
+        {
+            var charArray = password.ToCharArray();
+            for (int i = charArray.Length - 1; i >= 0; i--)
+            {
+                if (charArray[i] == 'z')
+                {
+                    charArray[i] = 'a';
+                }
+                else
+                {
+                    charArray[i]++;
+                    break;
+                }
+            }
+            return new string(charArray);
+        }
+
     }
 
 
