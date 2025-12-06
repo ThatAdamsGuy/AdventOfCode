@@ -11,147 +11,115 @@ namespace AdventOfCode2015
     {
         public static void Run()
         {
-            bool[,] grid = new bool[100, 100];
-            var input = File.ReadAllLines("Day18Input.txt");
-
-            //Setup
-            for(int i = 0; i < input.Length; i++)
+            string[] lines = File.ReadAllLines("Day18Input.txt"); 
+            char[][] grid = File.ReadAllLines("Day18Input.txt")
+                               .Select(line => line.ToCharArray())
+                               .ToArray();
+            for (int i = 0; i < 100; i++)
             {
-                for(int k = 0; k < input[i].Length; k++)
-                {
-                    if((input[i])[k] == '#')
-                    {
-                        grid[i, k] = true;
-                    } else
-                    {
-                        grid[i, k] = false;
-                    }
-                }
+                grid = RunLoop(grid, false);
             }
 
-            for (int loops = 0; loops < 100; loops ++)
+            int lightsOn = CountLights(grid);
+            Console.WriteLine($"Part 1 - {lightsOn}");
+
+            grid = File.ReadAllLines("Day18Input.txt")
+                               .Select(line => line.ToCharArray())
+                               .ToArray();
+            grid[0][0] = '#';
+            grid[0][99] = '#';
+            grid[99][0] = '#';
+            grid[99][99] = '#';
+
+            for (int i = 0; i < 100; i++)
             {
-                bool[,] tmpGrid = new bool[100, 100];
-                for(int i = 0; i < 100; i++)
-                {
-                    for(int j = 0; j < 100; j++)
-                    {
-                        List<bool> neighbours = new List<bool>();
-                        if(i == 0)
-                        {
-                            //Top Row
-                            neighbours.Add(grid[j, i + 1]);
-                            if(j == 0)
-                            {
-                                //Top left corner
-                                neighbours.Add(grid[j + 1, i]);
-                                neighbours.Add(grid[j + 1, i + 1]);
-                            }
-                            else if (j == 99)
-                            {
-                                //Top right corner
-                                neighbours.Add(grid[j - 1, i]);
-                                neighbours.Add(grid[j - 1, i + 1]);
-                            }
-                            else
-                            {
-                                //Top row
-                                neighbours.Add(grid[j - 1, i]);
-                                neighbours.Add(grid[j - 1, i + 1]);
-                                neighbours.Add(grid[j + 1, i]);
-                                neighbours.Add(grid[j + 1, i + 1]);
-                            }
-                        }
-                        else if (i == 99)
-                        {
-                            //Bottom Row
-                            neighbours.Add(grid[j, i - 1]);
-                            if (j == 0)
-                            {
-                                //Bottom left corner
-                                neighbours.Add(grid[j + 1, i]);
-                                neighbours.Add(grid[j + 1, i - 1]);
-                            }
-                            else if (j == 99)
-                            {
-                                //Bottom right corner
-                                neighbours.Add(grid[j - 1, i]);
-                                neighbours.Add(grid[j - 1, i - 1]);
-                            }
-                            else
-                            {
-                                //Bottom row
-                                neighbours.Add(grid[j - 1, i]);
-                                neighbours.Add(grid[j - 1, i - 1]);
-                                neighbours.Add(grid[j + 1, i]);
-                                neighbours.Add(grid[j + 1, i - 1]);
-                            }
-                        }
-                        else if (j == 0)
-                        {
-                            //Left column
-                            neighbours.Add(grid[j, i - 1]);
-                            neighbours.Add(grid[j + 1, i - 1]);
-                            neighbours.Add(grid[j + 1, i]);
-                            neighbours.Add(grid[j + 1, i + 1]);
-                            neighbours.Add(grid[j, i + 1]);
-                        }
-                        else if (j == 99)
-                        {
-                            //Right column
-                            neighbours.Add(grid[j, i - 1]);
-                            neighbours.Add(grid[j - 1, i - 1]);
-                            neighbours.Add(grid[j - 1, i]);
-                            neighbours.Add(grid[j - 1, i + 1]);
-                            neighbours.Add(grid[j, i + 1]);
-                        }
-                        else
-                        {
-                            //Middle of the grid
-                            neighbours.Add(grid[j, i - 1]);
-                            neighbours.Add(grid[j - 1, i - 1]);
-                            neighbours.Add(grid[j - 1, i]);
-                            neighbours.Add(grid[j - 1, i + 1]);
-                            neighbours.Add(grid[j, i + 1]);
-                            neighbours.Add(grid[j + 1, i - 1]);
-                            neighbours.Add(grid[j + 1, i]);
-                            neighbours.Add(grid[j + 1, i + 1]);
-                        }
-
-                        tmpGrid[i, j] = ProcessNeighbours(grid[i, j], neighbours);
-                    }
-                }
-                
-                grid = tmpGrid;
-            }
-
-            Console.WriteLine("Part 1 - " + grid.Cast<bool>().Count(x => x));
+                grid = RunLoop(grid, true);
+            } 
+            lightsOn = CountLights(grid);
+            Console.WriteLine($"Part 2 - {lightsOn}");
         }
 
-        private static bool ProcessNeighbours(bool curValue, List<bool> neighbours)
+        private static char[][] RunLoop(char[][] grid, bool stuckCorners)
         {
-            if (curValue)
+            char[][] newGrid = new char[grid.Length][];
+            for (int i = 0; i < grid.Length; i++)
             {
-                if(neighbours.Count(x => x) == 2 || neighbours.Count(x => x) == 3)
+                newGrid[i] = new char[grid[i].Length];
+            }
+
+            // Direction arrays for 8 surrounding positions
+            int[] dx = { -1, -1, -1, 0, 0, 1, 1, 1 };
+            int[] dy = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
                 {
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    if (stuckCorners && IsCorner(i, j))
+                    {
+                        newGrid[i][j] = grid[i][j];
+                        continue;
+                    }
+
+                    int surroundingLights = 0;
+                    // Check all 8 surrounding positions
+                    for (int dir = 0; dir < 8; dir++)
+                    {
+                        int newRow = i + dx[dir];
+                        int newCol = j + dy[dir];
+
+                        // Check bounds and condition
+                        if (IsValidPosition(newRow, newCol, grid) &&
+                            grid[newRow][newCol] == '#') // Replace with your condition
+                        {
+                            surroundingLights++;
+                        }
+                    }
+                    if (grid[i][j] == '#' && surroundingLights != 2 && surroundingLights != 3)
+                    {
+                        newGrid[i][j] = '.';
+                    }
+                    else if (grid[i][j] == '.' && surroundingLights == 3)
+                    {
+                        newGrid[i][j] = '#';
+                    }
+                    else
+                    {
+                        newGrid[i][j] = grid[i][j];
+                    }
                 }
             }
-            else
+            return newGrid;
+        }
+
+        private static bool IsCorner(int i, int j)
+        {
+            return (i == 0 && j == 0)
+                || (i == 0 && j == 99)
+                || (i == 99 && j == 0)
+                || (i == 99 && j == 99);
+        }
+
+        private static int CountLights(char[][] grid)
+        {
+            int count = 0;
+            for (int i = 0; i < grid.Length; i++)
             {
-                if(neighbours.Count(x => x) == 3)
+                for (int j = 0; j < grid[i].Length; j++)
                 {
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    if (grid[i][j] == '#')
+                    {
+                        count++;
+                    }
                 }
             }
+            return count;
+        }
+
+        private static bool IsValidPosition(int row, int col, char[][] grid)
+        {
+            return row >= 0 && row < grid.Length &&
+                   col >= 0 && col < grid[0].Length;
         }
     }
 }
