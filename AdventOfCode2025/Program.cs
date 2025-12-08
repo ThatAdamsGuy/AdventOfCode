@@ -58,45 +58,6 @@ namespace AdventOfCode2025
                     case 12:
                         Day12.Run();
                         break;
-                    case 13:
-                        Day13.Run();
-                        break;
-                    case 14:
-                        Day14.Run();
-                        break;
-                    case 15:
-                        Day15.Run();
-                        break;
-                    case 16:
-                        Day16.Run();
-                        break;
-                    case 17:
-                        Day17.Run();
-                        break;
-                    case 18:
-                        Day18.Run();
-                        break;
-                    case 19:
-                        Day19.Run();
-                        break;
-                    case 20:
-                        Day20.Run();
-                        break;
-                    case 21:
-                        Day21.Run();
-                        break;
-                    case 22:
-                        Day22.Run();
-                        break;
-                    case 23:
-                        Day23.Run();
-                        break;
-                    case 24:
-                        Day24.Run();
-                        break;
-                    case 25:
-                        Day25.Run();
-                        break;
                 }
                 Console.WriteLine();
             }

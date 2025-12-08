@@ -43,19 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Day22.cs" />
-    <Compile Include="Day23.cs" />
-    <Compile Include="Day24.cs" />
-    <Compile Include="Day25.cs" />
-    <Compile Include="Day21.cs" />
-    <Compile Include="Day20.cs" />
-    <Compile Include="Day19.cs" />
-    <Compile Include="Day18.cs" />
-    <Compile Include="Day17.cs" />
-    <Compile Include="Day16.cs" />
-    <Compile Include="Day15.cs" />
-    <Compile Include="Day14.cs" />
-    <Compile Include="Day13.cs" />
     <Compile Include="Day12.cs" />
     <Compile Include="Day11.cs" />
     <Compile Include="Day10.cs" />
@@ -99,8 +86,11 @@
     <Content Include="day06known.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="day07input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="day08input.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
