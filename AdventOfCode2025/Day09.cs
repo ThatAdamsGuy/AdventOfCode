@@ -47,14 +47,6 @@ namespace AdventOfCode2025
                 }
             }
 
-            // Parse boundary points (these are the RED tiles)
-            var redTiles = new List<Tuple<long, long>>();
-            foreach (var line in input)
-            {
-                var coords = line.Split(',');
-                redTiles.Add(Tuple.Create(long.Parse(coords[0]), long.Parse(coords[1])));
-            }
-
             Console.WriteLine($"Part 1 - {maxArea} (({maxX1},{maxY1}) to ({maxX2},{maxY2}))");
 
             var vertices = input
