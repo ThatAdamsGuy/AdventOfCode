@@ -98,7 +98,7 @@ namespace AdventOfCode2025
             }
         }
 
-        class Point
+        private class Point
         {
             public int X { get; set; }
             public int Y { get; set; }
